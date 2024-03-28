@@ -1,0 +1,27 @@
+def calculate_probabilities(a, b, c):
+    total = a + b + c
+    prob_a_b_collide = prob_a_c_collide = prob_b_c_collide = 0
+
+    if total > 1:
+        prob_a_b_collide = (a / total) * (b / (a + b)) + (b / total) * (a / (a + b))
+        prob_a_c_collide = (a / total) * (c / (a + b)) + (c / total) * (a / (a + b))
+        prob_b_c_collide = (b / total) * (c / (a + c)) + (c / total) * (b / (a + c))
+
+    return prob_a_b_collide, prob_a_c_collide, prob_b_c_collide
+
+def print_probability_table(a, b, c):
+    prob_a_b_collide, prob_a_c_collide, prob_b_c_collide = calculate_probabilities(a, b, c)
+    print("    |   A   |   B   |   C   |")
+    print("------------------------------")
+    print(f" +2 |{prob_b_c_collide:.4f} |{prob_a_c_collide:.4f} |{prob_a_b_collide:.4f} |")
+    print("------------------------------")
+    print(f" -1 |{prob_a_b_collide + prob_a_c_collide:.4f} |{prob_a_b_collide + prob_b_c_collide:.4f} |{prob_a_c_collide + prob_b_c_collide:.4f} |")
+
+
+# User input
+a = int(input("Enter the number of A particles: "))
+b = int(input("Enter the number of B particles: "))
+c = int(input("Enter the number of C particles: "))
+
+# Print probability table
+print_probability_table(a, b, c)
