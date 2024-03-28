@@ -3,9 +3,9 @@ def calculate_probabilities(a, b, c):
     prob_a_b_collide = prob_a_c_collide = prob_b_c_collide = 0
 
     if total > 1:
-        prob_a_b_collide = (a / total) * (b / (a + b)) + (b / total) * (a / (a + b))
-        prob_a_c_collide = (a / total) * (c / (a + b)) + (c / total) * (a / (a + b))
-        prob_b_c_collide = (b / total) * (c / (a + c)) + (c / total) * (b / (a + c))
+        prob_a_b_collide = (a / total) * (b / (b + c)) + (b / total) * (a / (a + c))
+        prob_a_c_collide = (a / total) * (c / (b + c)) + (c / total) * (a / (a + b))
+        prob_b_c_collide = (b / total) * (c / (a + c)) + (c / total) * (b / (a + b))
 
     return prob_a_b_collide, prob_a_c_collide, prob_b_c_collide
 
