@@ -1,0 +1,36 @@
+from itertools import combinations, product
+
+def collide(particles):
+    for i in range(len(particles)):
+        for j in range(i + 1, len(particles)):
+            if particles[i] != particles[j]:
+                species = {'A', 'B', 'C'}
+                remaining_species = species - {particles[i], particles[j]}
+                particles[i] = particles[j] = remaining_species.pop()
+                print(" ".join(particles))
+            elif particles[i] == particles[j]:  # Handle collision with the same species
+                print(" ".join(particles))
+                break
+
+def simulate_collisions(n):
+    generated_configs = set()
+    for initial_config in product('ABC', repeat=n):
+        sorted_config = tuple(sorted(initial_config))  # Sort the configuration to avoid duplicates
+        if sorted_config in generated_configs:
+            continue
+        generated_configs.add(sorted_config)
+        particles = list(initial_config)
+        print("Initial configuration:", " ".join(particles))
+        while True:
+            collided = False
+            for combo in combinations(range(n), 2):
+                i, j = combo
+                if particles[i] != particles[j]:
+                    collided = True
+                    break
+            if not collided:
+                break
+            collide(particles)
+
+n = int(input("Enter the number of particles: "))
+simulate_collisions(n)
