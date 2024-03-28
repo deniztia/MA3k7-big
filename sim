@@ -1,0 +1,31 @@
+import random
+
+def collision_simulation(num_a, num_b, num_c, num_iterations):
+    particles = ['A'] * num_a + ['B'] * num_b + ['C'] * num_c
+
+    for _ in range(num_iterations):
+        particle_1 = random.choice(particles)
+        particle_2 = random.choice(particles)
+
+        if particle_1 != particle_2:
+            particles.remove(particle_1)
+            particles.remove(particle_2)
+            if (particle_1 == 'A' and particle_2 == 'B') or (particle_1 == 'B' and particle_2 == 'A'):
+                particles.extend(['C', 'C'])
+            elif (particle_1 == 'A' and particle_2 == 'C') or (particle_1 == 'C' and particle_2 == 'A'):
+                particles.extend(['B', 'B'])
+            elif (particle_1 == 'B' and particle_2 == 'C') or (particle_1 == 'C' and particle_2 == 'B'):
+                particles.extend(['A', 'A'])
+
+    print("Particles:", particles)
+
+# User input
+num_a = int(input("Enter the number of A particles: "))
+num_b = int(input("Enter the number of B particles: "))
+num_c = int(input("Enter the number of C particles: "))
+total_particles = num_a + num_b + num_c
+num_iterations = int(input("Enter the number of iterations: "))
+
+# Run simulation
+collision_simulation(num_a, num_b, num_c, num_iterations)
+
