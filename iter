@@ -1,0 +1,19 @@
+from itertools import combinations_with_replacement, permutations
+from collections import Counter
+
+def arrangements_with_counts(n):
+    elements = ['A', 'B', 'C']
+    arrangements = combinations_with_replacement(elements, n)
+    counts = Counter()
+    for arrangement in arrangements:
+        perms = set(permutations(arrangement))
+        for perm in perms:
+            counts[''.join(sorted(perm))] += 1
+    total_count = sum(counts.values())
+    for arrangement, count in counts.items():
+        print(f"Arrangement: {arrangement}, Count: {count}")
+    print(f"Total Count: {total_count}")
+
+# Example usage:
+n = 4
+arrangements_with_counts(n)
