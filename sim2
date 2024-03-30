@@ -1,0 +1,39 @@
+import random
+
+def collision_simulation(num_a, num_b, num_c, num_iterations):
+    particles = ['A'] * num_a + ['B'] * num_b + ['C'] * num_c
+
+    for _ in range(num_iterations):
+        particle_1 = random.choice(particles)
+        particle_2 = random.choice(particles)
+
+        if particle_1 != particle_2:
+            particles.remove(particle_1)
+            particles.remove(particle_2)
+            if (particle_1 == 'A' and particle_2 == 'B') or (particle_1 == 'B' and particle_2 == 'A'):
+                particles.extend(['C', 'C'])
+            elif (particle_1 == 'A' and particle_2 == 'C') or (particle_1 == 'C' and particle_2 == 'A'):
+                particles.extend(['B', 'B'])
+            elif (particle_1 == 'B' and particle_2 == 'C') or (particle_1 == 'C' and particle_2 == 'B'):
+                particles.extend(['A', 'A'])
+
+    return particles
+
+def run_simulation(n, num_iterations, num_simulations):
+    one_type_count = 0
+    for _ in range(num_simulations):
+        num_a = random.randint(0, n)
+        num_b = random.randint(0, n - num_a)
+        num_c = n - num_a - num_b
+        result = collision_simulation(num_a, num_b, num_c, num_iterations)
+        if len(set(result)) == 1:
+            one_type_count += 1
+    print(f"Number of simulations resulting in a list with only one type of letter: {one_type_count}/{num_simulations}")
+
+# User input
+n = int(input("Enter the total number of particles: "))
+num_iterations = int(input("Enter the number of iterations per simulation: "))
+num_simulations = 100
+
+# Run simulations
+run_simulation(n, num_iterations, num_simulations)
