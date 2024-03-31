@@ -45,8 +45,8 @@ def total_probability_after_5_collisions(n):
         if prob_a_b * prob_a_c * prob_b_c > 0:
             stable_count += count
     return stable_count / total_count
+total_prob = total_probability_after_5_collisions(n)
 
 # Example usage:
 n = 5
-total_prob = total_probability_after_5_collisions(n)
 print(f"Total probability of becoming stable after 5 collisions for arrangements of size {n}: {total_prob}")
