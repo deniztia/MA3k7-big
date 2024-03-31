@@ -1,0 +1,52 @@
+from itertools import combinations_with_replacement, permutations
+from collections import Counter
+
+def arrangements_with_counts(n):
+    elements = ['A', 'B', 'C']
+    arrangements = combinations_with_replacement(elements, n)
+    counts = Counter()
+    for arrangement in arrangements:
+        perms = set(permutations(arrangement))
+        for perm in perms:
+            counts[''.join(sorted(perm))] += 1
+    total_count = sum(counts.values())
+    return counts, total_count
+
+def calculate_probabilities(a, b, c):
+    total = a + b + c
+    prob_a_b_collide = prob_a_c_collide = prob_b_c_collide = 0
+
+    if a != 0 and b!=0 and c !=0 :
+        prob_a_b_collide = (a / total) * (b / (b + c)) + (b / total) * (a / (a + c))
+        prob_a_c_collide = (a / total) * (c / (b + c)) + (c / total) * (a / (a + b))
+        prob_b_c_collide = (b / total) * (c / (a + c)) + (c / total) * (b / (a + b))
+    else:
+        if a == 0:
+            prob_b_c_collide = 1
+        elif b == 0:
+            prob_a_c_collide = 1
+        elif c == 1:
+            prob_a_b_collide = 1
+
+    return prob_a_b_collide, prob_a_c_collide, prob_b_c_collide
+
+
+
+
+
+def total_probability_after_5_collisions(n):
+    counts, total_count = arrangements_with_counts(n)
+    stable_count = 0
+    for arrangement, count in counts.items():
+        a_count = arrangement.count('A')
+        b_count = arrangement.count('B')
+        c_count = arrangement.count('C')
+        prob_a_b, prob_a_c, prob_b_c = calculate_probabilities(a_count, b_count, c_count)
+        if prob_a_b * prob_a_c * prob_b_c > 0:
+            stable_count += count
+    return stable_count / total_count
+
+# Example usage:
+n = 5
+total_prob = total_probability_after_5_collisions(n)
+print(f"Total probability of becoming stable after 5 collisions for arrangements of size {n}: {total_prob}")
