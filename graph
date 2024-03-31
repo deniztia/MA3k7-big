@@ -52,15 +52,15 @@ def calculate_total_probabilities(n_values):
     return total_probabilities
 
 # Range of n values to plot
-n_values = range(1, 15)  # Change the range as needed
+n_values = range(1, 11)  # Change the range as needed
 
 # Calculate total probabilities for the range of n values
 total_probabilities = calculate_total_probabilities(n_values)
 
 # Plotting
 plt.plot(n_values, total_probabilities, marker='o')
-plt.title('Total Probability vs n')
+plt.title('Probability vs n')
 plt.xlabel('n')
-plt.ylabel('Total Probability')
+plt.ylabel('Probability box is stable after 5 collisions')
 plt.grid(True)
 plt.show()
